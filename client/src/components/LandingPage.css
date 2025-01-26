@@ -20,7 +20,7 @@
 .video-container {
   z-index: 10;
   height: 100vh !important;
-  width: 100vw;
+  width: 100%;
   overflow: hidden;
   position: relative;
 
@@ -332,7 +332,7 @@
   Friend n Family Section Banner
 */
 .fnfSectionBanner {
-  width: 100vw;
+  width: 100%;
   min-height: 38vh;
 
   background-color: black;
