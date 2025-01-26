@@ -12,7 +12,6 @@ import LandingPage from "./components/LandingPage";
 //screens
 import DesireToFly from "./screens/DesireToFly";
 import NotForYou from "./screens/NotForYou";
-import NotForYouDetail from "./screens/NotForYouDetail";
 
 import "./App.css";
 
@@ -163,7 +162,6 @@ function App() {
         />
         <Route path="/desiretofly" element={<DesireToFly />} />
         <Route path="/notforyou" element={<NotForYou />} />
-        <Route path="/notforyoudetail" element={<NotForYouDetail />} />
         <Route path="/viewcart" element={<ViewCart />} />
       </Routes>
       <Footer />

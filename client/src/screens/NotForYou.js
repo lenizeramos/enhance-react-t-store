@@ -1,90 +1,77 @@
-// eslint-disable-next-line
-import React, { useRef, useState } from "react";
-import Slider from "react-slick";
-import CommonButton from "../components/CommonButton";
-import { useNavigate } from "react-router-dom";
-
-import { IoIosArrowForward } from "react-icons/io";
-import { IoIosArrowBack } from "react-icons/io";
+import React, { useState } from "react";
 import Rodal from "rodal";
-
-import imageData from "../shared/itemdata";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addItem, setCartIsOpen } from "../features/counter/cartSlice";
+import itemData from "../shared/itemdata";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import CommonButton from "../components/CommonButton";
 import "../css/productDisp.css";
 import "rodal/lib/rodal.css";
 
-
-// import ReactPlayer from "react-player";
-
 function NotForYou() {
-  const navigate = useNavigate();
-
-  const smallScreenMediaQuery = '(max-width: 700px)';
-  const iconSize = 28;
-  const delta = 5;
-  let startX;
-  let startY;
-  const imageNFY = imageData.find((img) => img.id === "nfy");
-
-  const sliderRef = useRef(null);
+  const dispatch = useDispatch();
+  const [isModalOpenSize, setIsModalOpenSize] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("nfu1.jpg");
+  const [selectedImage, setSelectedImage] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState("small");
 
-  const handleMouseDown = (event) => {
-    startX = event.pageX;
-    startY = event.pageY;
+  const handleQuantityChange = (event) => {
+    setQuantity(parseInt(event.target.value));
   };
-  const handleMouseUp = (event, image) => {
-    const diffX = Math.abs(event.pageX - startX);
-    const diffY = Math.abs(event.pageY - startY);
 
-    if (diffX < delta && diffY < delta) {
-      handleImageClick(image);
+  const handleSizeChange = (event) => {
+    setSize(event.target.value);
+  };
+
+  const handleSizeChart = () => {
+    setIsModalOpenSize(true);
+  };
+
+  const handleAddToCart = (item) => {
+    dispatch(addItem({ newItem: item, size: size, newQuantity: quantity }));
+    dispatch(setCartIsOpen(true));
+  };
+
+  const closeModalSize = () => {
+    setIsModalOpenSize(false);
+  };
+
+  const openImageModal = (imagePath) => {
+    if (imagePath) {
+      setSelectedImage(imagePath);
+      setIsModalOpen(true);
     }
   };
-  const handlePrevious = () => {
-    sliderRef.current.slickPrev();
-  };
-  const handleNext = () => {
-    sliderRef.current.slickNext();
-  };
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setIsModalOpen(true);
-  };
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  const settings = {
-    className: "center",
-    centerMode: true,
-    infinite: true,
-    centerPadding: "30px",
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    speed: 800,
-    swipe: true,
-    touchMove: true,
-  };
+  const smallScreenMediaQuery = "(max-width: 700px)";
   const getCustomStyles = () => {
     return {
       width: window.matchMedia(smallScreenMediaQuery).matches ? "70%" : "50%",
-      height: window.matchMedia(smallScreenMediaQuery).matches? "35%" : "80.5%",
+      height: window.matchMedia(smallScreenMediaQuery).matches
+        ? "35%"
+        : "80.5%",
       borderRadius: "3px",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
       flexDirection: "column",
       margin: "auto",
-      padding: 0
+      padding: 0,
     };
   };
-
   const customStyles = getCustomStyles();
 
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <div id="parent-div" className="parent-parent">
       <div className="rodal-parent">
         <Rodal
           visible={isModalOpen}
@@ -92,11 +79,29 @@ function NotForYou() {
           customStyles={customStyles}
         >
           <div>
+            {selectedImage ? (
+              <img
+                src={require(`../shared/${selectedImage}`)}
+                alt="Imagem ampliada"
+                className="enlarged-image"
+                style={{ width: "100%" }}
+              />
+            ) : (
+              <p>Image not available</p>
+            )}
+          </div>
+        </Rodal>
+        <Rodal
+          visible={isModalOpenSize}
+          onClose={closeModalSize}
+          customStyles={customStyles}
+        >
+          <div>
             <img
-              src={require(`../shared/${selectedImage}`)}
+              src={require(`../shared/asset.png`)}
               alt="enlarged"
               className="enlarged-image"
-              style={{width: '100%'}}            
+              style={{ width: "100%" }}
             />
           </div>
         </Rodal>
@@ -108,49 +113,107 @@ function NotForYou() {
             <h2 className="title">Not For you</h2>
 
             <div className="btnContainer">
-              <CommonButton title="Shop Now" onClickHandler={() => navigate("/notforyoudetail")}/>
+              <CommonButton
+                title="Shop Now"
+                onClickHandler={() => navigate("")}
+              />
             </div>
           </div>
 
-          {/* <ReactPlayer
-            className="reactPlayer"
-            url="/nfu.mp4"
-            playing={true}
-            controls={false}
-            volume={null}
-            muted={true}
-            width="100%"
-            height="100%"
-            loop={true}
-            playsinline={true}
-          /> */}
           <img src="nfynew.jpg" className="newImg" alt="new dtf img"></img>
-
         </section>
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-12 col-md-6">
+              <div onClick={() => openImageModal("7.png")}>
+                <img
+                  src={require(`../shared/7.png`)}
+                  alt="product"
+                  className="img-fluid"
+                />
+              </div>
 
-        <div className="carousel-container">
-          <div className="arrow-left" onClick={handlePrevious}>
-            <IoIosArrowBack size={iconSize} />
-          </div>
-          <Slider {...settings} ref={sliderRef}>
-            {imageNFY.images.map((image, index) => (
-              <div key={index}>
-                <div
-                  className="image-container"
-                  onMouseDown={handleMouseDown}
-                  onMouseUp={(event) => handleMouseUp(event, image)}
-                >
-                  <img
-                    src={require(`../shared/${image}`)}
-                    alt='jaja'
-                    className="carousel-image"
-                  />
+              <div className="d-flex justify-content-center w-100">
+                <p className="text-muted w-75">
+                  Not for You (NFU) embodies the essence of individuality and
+                  self-assuredness, embracing the notion that not every creation
+                  is meant for everyone. This concept celebrates uniqueness and
+                  encourages the freedom to be true to oneself. All HUH
+                  clothing, including the NFU line, is meticulously manufactured
+                  in Bangladesh. The NFU series features oversized T-shirts made
+                  from 100% cotton, ensuring exceptional comfort and quality.
+                  With a weight of 400 GSM, these garments are crafted to
+                  provide a distinctive fashion statement.
+                </p>
+              </div>
+            </div>
+
+            <div className="col-12 col-md-6">
+              <div onClick={() => openImageModal("8.png")}>
+                <img
+                  src={require(`../shared/8.png`)}
+                  alt="product"
+                  className="img-fluid"
+                />
+              </div>
+              <div className="d-flex justify-content-center w-100">
+                <div className="d-flex flex-column w-75">
+                  <h3 className="text-center">NOT FOR YOU</h3>
+                  <h4 className="text-center">{`CAD: $${itemData[0].priceInCad}`}</h4>
+
+                  <div className="mb-3">
+                    <label htmlFor="quantityInput" className="form-label">
+                      Quantity
+                    </label>
+                    <input
+                      id="quantityInput"
+                      type="number"
+                      min="1"
+                      value={quantity}
+                      onChange={handleQuantityChange}
+                      className="form-control"
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="demo-simple-select" className="form-label">
+                      Size
+                    </label>
+                    <FormControl
+                      sx={{ height: "30px", minWidth: 120 }}
+                      size="small"
+                      fullWidth
+                    >
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={size}
+                        onChange={handleSizeChange}
+                      >
+                        <MenuItem value="small">Small</MenuItem>
+                        <MenuItem value="medium">Medium</MenuItem>
+                        <MenuItem value="large">Large</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
+
+                  <div className="d-flex flex-column align-items-center">
+                    <button
+                      className="btn btn-primary mt-3 w-50"
+                      onClick={() => handleAddToCart(itemData[0])}
+                    >
+                      Add to Cart
+                    </button>
+                    <button
+                      className="btn btn-link mt-2 w-50"
+                      onClick={handleSizeChart}
+                    >
+                      Size Chart
+                    </button>
+                  </div>
                 </div>
               </div>
-            ))}
-          </Slider>
-          <div className="arrow-right" onClick={handleNext}>
-            <IoIosArrowForward size={iconSize} />
+            </div>
           </div>
         </div>
       </div>
