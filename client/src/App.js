@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useInView } from "react-intersection-observer";
 
 import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
@@ -44,6 +45,10 @@ function App() {
   const [screenSize, setScreenSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
+  });
+
+  const { ref: whiteSectionRef, inView: isWhiteSectionInView } = useInView({
+    threshold: 0.1,
   });
 
   const fnfSectionRef = useRef(null);
@@ -131,7 +136,7 @@ function App() {
           <HiMenuAlt4
             size={40}
             className="hiMenu"
-            color="black"
+            color={`${isWhiteSectionInView ? "black" : "white"}`}
             onClick={() => {
               setNavOpen(!navOpened);
             }}
@@ -141,7 +146,7 @@ function App() {
           <AiFillShopping
             className="shoppingCartIcon"
             size={40}
-            color="black"
+            color={`${isWhiteSectionInView ? "black" : "white"}`}
             onClick={() => {
               dispatch(setCartIsOpen(!sidePanel));
             }}
@@ -160,8 +165,14 @@ function App() {
           path="/"
           element={<LandingPage fnfSectionRef={fnfSectionRef} />}
         />
-        <Route path="/desiretofly" element={<DesireToFly />} />
-        <Route path="/notforyou" element={<NotForYou />} />
+        <Route
+          path="/desiretofly"
+          element={<DesireToFly sectionRef={whiteSectionRef} />}
+        />
+        <Route
+          path="/notforyou"
+          element={<NotForYou sectionRef={whiteSectionRef} />}
+        />
         <Route path="/viewcart" element={<ViewCart />} />
       </Routes>
       <Footer />

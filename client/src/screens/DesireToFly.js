@@ -11,7 +11,7 @@ import CommonButton from "../components/CommonButton";
 import "../css/productDisp.css";
 import "rodal/lib/rodal.css";
 
-function DesireToFly() {
+const DesireToFly = ({ sectionRef  }) => {
   const dispatch = useDispatch();
   const [isModalOpenSize, setIsModalOpenSize] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -122,8 +122,8 @@ function DesireToFly() {
 
           <img src="dtfnew.jpg" className="newImg" alt="new dtf img"></img>
         </section>
-        <div className="container">
-          <div className="row justify-content-center">
+        <div className="container" ref={sectionRef }>
+          <div className="row justify-content-center" >
             <div className="col-12 col-md-6">
               <div onClick={() => openImageModal("2.png")}>
                 <img
@@ -219,6 +219,6 @@ function DesireToFly() {
       </div>
     </div>
   );
-}
+};
 
 export default DesireToFly;
