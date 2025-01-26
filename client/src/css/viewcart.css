@@ -2,15 +2,14 @@
 .body-container-vc {
   display: flex;
   justify-content: center;
-  margin-top: 10rem;
+  margin-top: 1.8rem;
   gap: 30px;
-  /* padding-top: 5rem; */
 }
 .cartItemsContainer-vc {
   width: 500px;
 }
 
-#viewCart{
+#viewCart {
   /* background-color: orange; */
   padding: 1rem;
   margin: 1rem 0rem;

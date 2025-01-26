@@ -14,7 +14,8 @@
   right: 0;
   width: 25vw;
   height: 100vh;
-
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: white;
 
   transform: translateX(100%);
