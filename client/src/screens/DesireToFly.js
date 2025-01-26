@@ -9,6 +9,8 @@ import Select from "@mui/material/Select";
 import CommonButton from "../components/CommonButton";
 import "../css/productDisp.css";
 import "rodal/lib/rodal.css";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const DesireToFly = ({ sectionRef }) => {
   const dispatch = useDispatch();
@@ -120,7 +122,7 @@ const DesireToFly = ({ sectionRef }) => {
 
             <div className="btnContainer">
               <CommonButton
-                title="Shop Now"
+                title={<FontAwesomeIcon icon={faAngleDown} />}
                 onClickHandler={scrollToShopSection}
               />
             </div>
