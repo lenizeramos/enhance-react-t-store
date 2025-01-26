@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { Toaster } from "react-hot-toast";
 //components
 import LandingPage from "./components/LandingPage";
+import PageNotFound from "./components/PageNotFound";
 
 //screens
 import DesireToFly from "./screens/DesireToFly";
@@ -174,6 +175,7 @@ function App() {
           element={<NotForYou sectionRef={whiteSectionRef} />}
         />
         <Route path="/viewcart" element={<ViewCart />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
       <Toaster />

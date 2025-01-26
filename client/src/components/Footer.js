@@ -1,6 +1,7 @@
 import React from "react";
 import { AiOutlineInstagram } from "react-icons/ai";
 import { IoPerson, IoMail } from "react-icons/io5";
+import { FaFacebook } from "react-icons/fa";
 
 function Footer(props) {
   const iconSize = 28;
@@ -38,9 +39,9 @@ function Footer(props) {
             className="footerHyperlink"
             target="_blank"
             rel="noopener noreferrer"
-            href="https://howuniversehowls.myportfolio.com/"
+            href="https://www.facebook.com/yourprofile"
           >
-            <IoPerson size={iconSize / 1.2} />
+            <FaFacebook size={iconSize / 1.2} />
           </a>
         </div>
       </div>
