@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import Rodal from "rodal";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItem, setCartIsOpen } from "../features/counter/cartSlice";
 import itemData from "../shared/itemdata";
@@ -18,6 +17,8 @@ const NotForYou = ({ sectionRef }) => {
   const [selectedImage, setSelectedImage] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState("small");
+
+  const shopSectionRef = useRef(null);
 
   const handleQuantityChange = (event) => {
     setQuantity(parseInt(event.target.value));
@@ -51,8 +52,8 @@ const NotForYou = ({ sectionRef }) => {
     setIsModalOpen(false);
   };
   const smallScreenMediaQuery = "(max-width: 700px)";
-  const getCustomStyles = () => {
-    return {
+  const customStyles = useMemo(
+    () => ({
       width: window.matchMedia(smallScreenMediaQuery).matches ? "70%" : "50%",
       height: window.matchMedia(smallScreenMediaQuery).matches
         ? "35%"
@@ -64,11 +65,16 @@ const NotForYou = ({ sectionRef }) => {
       flexDirection: "column",
       margin: "auto",
       padding: 0,
-    };
-  };
-  const customStyles = getCustomStyles();
+    }),
+    []
+  );
 
-  const navigate = useNavigate();
+
+  const scrollToShopSection = () => {
+    if (shopSectionRef.current) {
+      shopSectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div id="parent-div" className="parent-parent">
@@ -115,7 +121,7 @@ const NotForYou = ({ sectionRef }) => {
             <div className="btnContainer">
               <CommonButton
                 title="Shop Now"
-                onClickHandler={() => navigate("")}
+                onClickHandler={scrollToShopSection}
               />
             </div>
           </div>
@@ -123,7 +129,7 @@ const NotForYou = ({ sectionRef }) => {
           <img src="nfynew.jpg" className="newImg" alt="new dtf img"></img>
         </section>
         <div className="container" ref={sectionRef }>
-          <div className="row justify-content-center">
+          <div className="row justify-content-center" id="shopSection" ref={shopSectionRef} >
             <div className="col-12 col-md-6">
               <div onClick={() => openImageModal("7.png")}>
                 <img
