@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./LandingPage.css";
 import { useLocation, useNavigate } from "react-router-dom";
-// eslint-disable-next-line
-import itemData from "../shared/itemdata";
 import Rodal from "rodal";
 import "rodal/lib/rodal.css";
 import ReactPlayer from "react-player";
@@ -12,50 +10,18 @@ import loadingGif from "../shared/bird.gif";
 function LandingPage(props) {
   const videoRef = useRef(undefined);
   const navigate = useNavigate();
-  // eslint-disable-next-line
-  const [isHovered, setIsHovered] = useState(false);
-  // eslint-disable-next-line
-  const [isHovered2, setIsHovered2] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
   const [isLoading, setLoading] = useState(true);
-  
+
   useEffect(() => {
-    // Set a timeout to switch the loading state off after 4500ms
-    const loadingTimer = setTimeout(() => {
-      setLoading(false);
-    }, 4500);
-  
-    // Return a cleanup function that clears the timeout
-    // if the component unmounts before the timeout is reached
-    return () => clearTimeout(loadingTimer);
-  }, []); 
+    setLoading(false);
+  }, []);
 
   const closeModal = () => {
     setModalIsOpen(false);
   };
-  // eslint-disable-next-line
-  const handleShopNowClick = (item) => {
-    const nameInLowerCase = item.name.replace(/\s/g, "").toLowerCase();
-    navigate(`${nameInLowerCase}`);
-  };
 
   const fnfClickHandler = () => {
-    // toast(
-    //   <div style={{ height: "100%", borderLeft: "5px solid #ddab15" }}>
-    //     <span style={{ color: "#000", marginLeft: "1rem" }}>Coming Soon</span>
-    //   </div>,
-    //   {
-    //     position: "top-right",
-    //     autoClose: 2500,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     theme: "dark",
-    //     progressClassName: "toastProgress",
-    //   }
-    // );
     setModalIsOpen(true);
   };
 
@@ -77,7 +43,6 @@ function LandingPage(props) {
     bottom: "auto",
     top: "50%",
     transform: "translateY(-50%)",
-
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -99,7 +64,7 @@ function LandingPage(props) {
       setPasscodeErrorMsg("");
       setPasscodeError(false);
       setModalIsOpen(false);
-      alert('do not worry about this page')
+      alert("do not worry about this page");
     } else {
       //handleFailPasscode
       setPasscodeError(true);
@@ -176,6 +141,7 @@ function LandingPage(props) {
           height="100%"
           loop={true}
           playsinline={true}
+          //onReady={() => setLoading(false)}
         />
       </section>
 
@@ -185,7 +151,7 @@ function LandingPage(props) {
         ref={props.fnfSectionRef}
       >
         <h2 className="fndTitle">friends and family</h2>
-        <CommonButton title="LOG IN HERE" onClickHandler={fnfClickHandler}/>
+        <CommonButton title="LOG IN HERE" onClickHandler={fnfClickHandler} />
       </div>
     </div>
   );

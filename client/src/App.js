@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import { toast } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 //components
 import LandingPage from "./components/LandingPage";
 
@@ -28,7 +29,6 @@ import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
 
 toast.configure();
-
 
 function App() {
   const dispatch = useDispatch();
@@ -167,9 +167,9 @@ function App() {
         <Route path="/desiretoflydetail" element={<DesireToFlyDetail />} />
         <Route path="/notforyoudetail" element={<NotForYouDetail />} />
         <Route path="/viewcart" element={<ViewCart />} />
-
       </Routes>
       <Footer />
+      <Toaster />
     </div>
   );
 }
