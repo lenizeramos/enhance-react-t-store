@@ -70,7 +70,7 @@
   font-size: 0.8vw;
 }
 .selectQuantity-vc {
-  overflow: hidden;
+  /* overflow: hidden; */
   width: 55%;
   height: 1rem;
 
