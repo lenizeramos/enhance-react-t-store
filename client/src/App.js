@@ -51,6 +51,7 @@ function App() {
   const { ref: whiteSectionRef, inView: isWhiteSectionInView } = useInView({
     threshold: 0.1,
   });
+  const [serviceWorkerError, setServiceWorkerError] = useState(null);
 
   const fnfSectionRef = useRef(null);
   const scrollToFnFSection = () => {
@@ -88,6 +89,21 @@ function App() {
     };
   });
   // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/service-worker.js")
+        .then(() => {
+          setServiceWorkerError(null);
+          console.log("Service Worker registered successfully.");
+        })
+        .catch((error) => {
+          setServiceWorkerError(error);
+        });
+    }
+  }, []);
+
   return (
     <div>
       <ScrollToTop />
@@ -179,6 +195,7 @@ function App() {
       </Routes>
       <Footer />
       <Toaster />
+      {serviceWorkerError && <p>Service Worker registration failed.</p>}
     </div>
   );
 }

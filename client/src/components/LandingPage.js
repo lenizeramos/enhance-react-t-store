@@ -141,7 +141,7 @@ function LandingPage(props) {
           height="100%"
           loop={true}
           playsinline={true}
-          //onReady={() => setLoading(false)}
+          onReady={() => setLoading(false)}
         />
       </section>
 
