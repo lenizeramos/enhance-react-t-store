@@ -165,7 +165,7 @@ const NotForYou = ({ sectionRef }) => {
               <div className="d-flex justify-content-center w-100">
                 <div className="d-flex flex-column w-75">
                   <h3 className="text-center">NOT FOR YOU</h3>
-                  <h4 className="text-center">{`CAD: $${itemData[0].priceInCad}`}</h4>
+                  <h4 className="text-center">{`CAD: $${itemData[1].priceInCad}`}</h4>
 
                   <div className="mb-3">
                     <label htmlFor="quantityInput" className="form-label">
@@ -206,7 +206,7 @@ const NotForYou = ({ sectionRef }) => {
                   <div className="d-flex flex-column align-items-center">
                     <button
                       className="btn btn-primary mt-3 w-50"
-                      onClick={() => handleAddToCart(itemData[0])}
+                      onClick={() => handleAddToCart(itemData[1])}
                     >
                       Add to Cart
                     </button>
